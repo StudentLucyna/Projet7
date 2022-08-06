@@ -2,6 +2,5 @@
 plots/
 models/
 hp_trials/
-web/
 data/
 .ipynb_checkpoints/
