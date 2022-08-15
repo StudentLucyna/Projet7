@@ -15,7 +15,7 @@ def main():
 
     # Logo "Prêt à dépenser"
     
-    image = Image.open('app/projet7/web/dashboard/logo.png')
+    image = Image.open('/app/projet7/web/dashboard/logo.png')
     st.sidebar.image(image, width=280)
 
     st.title('Tableau de bord - "Prêt à dépenser"')
