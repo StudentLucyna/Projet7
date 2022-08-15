@@ -6,16 +6,17 @@ import requests
 import json
 import pandas as pd
 import matplotlib.pyplot as plt
-
+import subprocess
 
 def main():
     st.set_option('deprecation.showPyplotGlobalUse', False)
+    subprocess.Popen(['/home/appuser/venv/bin/python', '/app/projet7/web/api/api_flask_Pysz.py'], close_fds=True)
     
     API_URL = "http://127.0.0.1:5000/api/"
 
     # Logo "Prêt à dépenser"
     
-    image = Image.open('dashboard/logo.png')
+    image = Image.open('/app/projet7/web/dashboard/logo.png')
     st.sidebar.image(image, width=280)
 
     st.title('Tableau de bord - "Prêt à dépenser"')
