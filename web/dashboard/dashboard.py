@@ -1,4 +1,4 @@
-# TO RUN : $streamlit run dashboard/dashboard_local.py
+# TO RUN : $streamlit run dashboard/dashboard.py
 
 import streamlit as st
 from PIL import Image
@@ -6,17 +6,17 @@ import requests
 import json
 import pandas as pd
 import matplotlib.pyplot as plt
-#import subprocess
+import subprocess
 
 def main():
     st.set_option('deprecation.showPyplotGlobalUse', False)
-    #subprocess.Popen(['/home/appuser/venv/bin/python', '/app/projet7/web/api/api_flask_Pysz.py'], close_fds=True)
+    subprocess.Popen(['/home/appuser/venv/bin/python', '/app/projet7/web/api/api_flask_Pysz.py'], close_fds=True)
     
     API_URL = "http://127.0.0.1:5000/api/"
 
     # Logo "Prêt à dépenser"
-    image = Image.open('dashboard/logo.png')
-    #image = Image.open('/app/projet7/web/dashboard/logo.png')
+    #image = Image.open('dashboard/logo.png')
+    image = Image.open('/app/projet7/web/dashboard/logo.png')
     st.sidebar.image(image, width=280)
 
     st.title('Tableau de bord - "Prêt à dépenser"')
@@ -111,63 +111,6 @@ def main():
         if st.checkbox('Show details'):
             st.table(features_imp)
 
-    st.header('LOCAL INTERPRETATION')
-
-    # Get features importance (surrogate model, cached)
-    @st.cache
-    def get_features_importance():
-        # URL of the features' importance API
-        FEATURES_IMP_API_URL = API_URL + "local_interpretation"
-    
-        # save the response to API request
-        response = requests.get(FEATURES_IMP_API_URL)
-        
-        # convert from JSON format to Python dict
-        content = json.loads(response.content.decode('utf-8'))
-
-        # convert data to pd.Series
-        features_imp = pd.Series(content['data']).rename("Features importance").sort_values(ascending=False)
-
-        return features_imp
-
-
-    if st.sidebar.checkbox('Show local interpretation'):
-
-        # get the features' importance
-        features_imp = get_features_importance()
-
-        # initialization
-        sum_fi = 0
-        labels = []
-        frequencies = []
-
-        # get the labels and frequencies of 10 most important features
-        for feat_name, feat_imp in features_imp[:9].iteritems():
-            labels.append(feat_name)
-            frequencies.append(feat_imp)
-            sum_fi += feat_imp
-
-        # complete the FI of other features
-        labels.append("OTHER FEATURES…")
-        frequencies.append(1 - sum_fi)
-
-        # Set up the axe
-        _, ax = plt.subplots()
-        ax.axis("equal")
-        ax.pie(frequencies)
-        ax.set_title("Features importance")
-        ax.legend(
-            labels,
-            loc='center left',
-            bbox_to_anchor=(0.7, 0.5),
-        )
-
-        # Plot the pie-plot of features importance
-        st.pyplot()
-
-
-        if st.checkbox('Show details'):
-            st.table(features_imp)
 
     ##################################################
     # PERSONAL DATA

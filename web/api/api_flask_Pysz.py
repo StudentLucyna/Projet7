@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# TO RUN : $python api/api_flask_Pysz_lokal.py
+# TO RUN : $python api/api_flask_Pysz.py
 
 # Load librairies
 import pandas as pd
@@ -12,33 +12,33 @@ from treeinterpreter import treeinterpreter as ti
 # Load the data
 #--------------
 # processed data for applying the scoring model
-data_processed = pd.read_csv("data/data_processed.csv", index_col='SK_ID_CURR')
-#data_processed = pd.read_csv("/app/projet7/web/data/data_processed.csv", index_col='SK_ID_CURR')
+#data_processed = pd.read_csv("data/data_processed.csv", index_col='SK_ID_CURR')
+data_processed = pd.read_csv("/app/projet7/web/data/data_processed.csv", index_col='SK_ID_CURR')
 # original data for displaying personal data
-data_original = pd.read_csv("data/data_original.csv", index_col='SK_ID_CURR')
-#data_original = pd.read_csv("/app/projet7/web/data/data_original.csv", index_col='SK_ID_CURR')
+#data_original = pd.read_csv("data/data_original.csv", index_col='SK_ID_CURR')
+data_original = pd.read_csv("/app/projet7/web/data/data_original.csv", index_col='SK_ID_CURR')
 # label encoded original data for interpretation with surrogate model
-data_original_le = pd.read_csv("data/data_original_le.csv", index_col='SK_ID_CURR')
-#data_original_le = pd.read_csv("/app/projet7/web/data/data_original_le.csv", index_col='SK_ID_CURR')
+#data_original_le = pd.read_csv("data/data_original_le.csv", index_col='SK_ID_CURR')
+data_original_le = pd.read_csv("/app/projet7/web/data/data_original_le.csv", index_col='SK_ID_CURR')
 
 # aggregated data of the train set for comparison to current applicant
-data_agg = pd.read_csv("data/data_agg.csv", index_col=0)
-#data_agg = pd.read_csv("/app/projet7/web/data/data_agg.csv", index_col=0)
+#data_agg = pd.read_csv("data/data_agg.csv", index_col=0)
+data_agg = pd.read_csv("/app/projet7/web/data/data_agg.csv", index_col=0)
 
 # aggregated data of the train set for comparison to current applicant
-features_desc = pd.read_csv("data/features_descriptions.csv", index_col=0)
-#features_desc = pd.read_csv("/app/projet7/web/data/features_descriptions.csv", index_col=0)
+#features_desc = pd.read_csv("data/features_descriptions.csv", index_col=0)
+features_desc = pd.read_csv("/app/projet7/web/data/features_descriptions.csv", index_col=0)
 
 # Load the models
 #----------------
 # Load the scoring model
 scikit_version = sklearn.__version__
-model = joblib.load("models/model_{version}.pkl".format(version=scikit_version))
-#model = joblib.load("/app/projet7/web/models/model_{version}.pkl".format(version=scikit_version))
+#model = joblib.load("models/model_{version}.pkl".format(version=scikit_version))
+model = joblib.load("/app/projet7/web/models/model_{version}.pkl".format(version=scikit_version))
 
 # Load the surrogate model
-surrogate_model = joblib.load("models/surrogate_model_{version}.pkl".format(version=scikit_version))
-#surrogate_model = joblib.load("/app/projet7/web/models/surrogate_model_{version}.pkl".format(version=scikit_version))
+#surrogate_model = joblib.load("models/surrogate_model_{version}.pkl".format(version=scikit_version))
+surrogate_model = joblib.load("/app/projet7/web/models/surrogate_model_{version}.pkl".format(version=scikit_version))
 
 ###############################################################
 app = Flask(__name__)

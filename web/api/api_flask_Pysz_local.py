@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# TO RUN : $python api/api_flask_Pysz_lokal.py
+# TO RUN : $python api/api_flask_Pysz_local.py
 
 # Load librairies
 import pandas as pd
